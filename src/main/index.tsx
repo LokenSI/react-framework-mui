@@ -9,16 +9,27 @@ import {
   Container,
   Button,
   ThemeProvider,
+  createTheme,
+  Box,
 } from "@mui/material";
+import { green } from "@mui/material/colors";
+import { atom, useRecoilValue } from "recoil";
+import darkTheme from "../global/darkTheme";
+import lightTheme from "../global/lightTheme";
 // Import the custom styledbox from the global theme
-import theme from "../global/theme";
-
-
 
 const cards = [1,2,3,4,5,6,7,8,9]
 
+export const darkModeState = atom({
+  key: 'darkModeState',
+  default: true,
+});
 
 function Main() {
+  const DarkMState = useRecoilValue(darkModeState);
+  console.log(DarkMState);
+  let theme = DarkMState ? createTheme(lightTheme) : createTheme(darkTheme);
+  
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -72,7 +83,7 @@ function Main() {
           <Container maxWidth="md">
             <Grid container spacing={4}>
             { cards.map((cards) => (
-                <Grid item key={cards}>
+                <Grid item key={cards} xs={12} sm={6} md={4}>
                 <Card sx={{
                     height: '100%',
                     display: 'flex',
@@ -106,9 +117,12 @@ function Main() {
             </Grid>
           </Container>
         </main>
+        <footer>
+          Footer
+        </footer>
       </ThemeProvider>
     </>
   );
 }
 
-export default Main;
+export default Main

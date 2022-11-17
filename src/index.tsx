@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Main from './main';
+import Main, { darkModeState } from './main';
 import TopBar from './global/topbar/topbar';
 import reportWebVitals from './reportWebVitals';
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot, useRecoilValue } from 'recoil';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createTheme } from '@mui/material';
 
 // Set up router and recoil.
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
+  
 );
+
 root.render(
   <React.StrictMode>
     <RecoilRoot>

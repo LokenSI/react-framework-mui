@@ -1,13 +1,15 @@
 import { PhotoCamera } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import { useRecoilValue } from "recoil";
+import { companyNameState } from "../globalState";
 
-import theme from "../theme";
-
+// Uses recoil to get company name. Replace "PhotoCamera" with the correct logo.
 export default function Logo() {
+  const companyName = useRecoilValue(companyNameState);
   return (
     <>
-      <PhotoCamera sx={{ marginRight: theme.spacing(2) }} />
-      <Typography variant="h6">Photo Album</Typography>
+      <PhotoCamera sx={{ marginRight: '10px' }} />
+      <Typography variant="h6">{companyName}</Typography>
     </>
   );
 }

@@ -1,16 +1,13 @@
-import { Box, createTheme } from '@mui/material'
 import { green } from '@mui/material/colors'
 import { red } from '@mui/material/colors'
-import { styled } from "@mui/material/styles";
+import darkTheme from './darkTheme';
 
 
-// Define the theme for the whole page.
+const lightTheme = {
 
-
-const theme = createTheme({
-        palette: {
-            mode:'light',
+    palette: {
             primary: {
+                mode: 'light',
                 main: green[500]
             }
         },
@@ -19,6 +16,7 @@ const theme = createTheme({
             //marginTop: '2rem',
               //fontSize: '1rem',
             },
+            fontFamily: '"Source-Sans-Pro", "Roboto", sans-serif',
         },
         components: {
             MuiButtonBase: {
@@ -31,12 +29,7 @@ const theme = createTheme({
             
             }
         }
-    });
+    };
 
-    export const StyledBox = styled(Box)(({ theme }) => ({
-        fontSize: '2rem',
-        backgroundColor: theme.palette.primary.dark,
-    }))
-
-    export default theme;
+    export default lightTheme;
 
