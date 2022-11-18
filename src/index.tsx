@@ -8,6 +8,7 @@ import { RecoilRoot, useRecoilValue } from 'recoil';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme } from '@mui/material';
 
+
 // Set up router and recoil.
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      {/* <TopBar /> */}
+      <TopBar />
       <Router>
         <Routes>
           <Route path="/*" element={<Main />}/>
