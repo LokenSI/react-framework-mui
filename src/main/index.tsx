@@ -1,39 +1,64 @@
-import {
-  Typography,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CssBaseline,
-  Grid,
-  Container,
-  Button,
-  ThemeProvider,
-  createTheme,
-  Box,
-} from "@mui/material";
-import { green } from "@mui/material/colors";
-import { atom, useRecoilValue } from "recoil";
-import darkTheme from "../global/darkTheme";
-import lightTheme from "../global/lightTheme";
-// Import the custom styledbox from the global theme
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Container, CssBaseline, Grid, Typography } from '@mui/material';
+import { Suspense } from 'react';
 
-const cards = [1,2,3,4,5,6,7,8,9]
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const cards = [1,2,3,4,5,6,7,8,9];
 
-export const darkModeState = atom({
-  key: 'darkModeState',
-  default: true,
-});
-
-function Main() {
-  const DarkMState = useRecoilValue(darkModeState);
-  console.log(DarkMState);
-  let theme = DarkMState ? createTheme(lightTheme) : createTheme(darkTheme);
-  
+function MyApp() {
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+      }}
+    >
+      {theme.palette.mode} mode
+      <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    </Box>
+  );
+}
+
+export default function ToggleColorMode() {
+  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <CssBaseline />
         <main>
           <div>
             <Container maxWidth="sm" sx={{ padding: theme.spacing(8, 0, 6) }}>
@@ -83,12 +108,14 @@ function Main() {
           <Container maxWidth="md">
             <Grid container spacing={4}>
             { cards.map((cards) => (
+                
                 <Grid item key={cards} xs={12} sm={6} md={4}>
                 <Card sx={{
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                 }}>
+                  <Suspense fallback={<CircularProgress />}>
                   <CardMedia
                     image="https://picsum.photos/200/300"
                     title="Image title"
@@ -96,6 +123,7 @@ function Main() {
                         paddingTop: '56.25%' //16:9
                     }}
                   />
+                  </Suspense>
                   <CardContent sx={{
                     flexGrow: '1'
                   }}>
@@ -111,6 +139,7 @@ function Main() {
                     <Button size="small" color="primary">Edit</Button>
                   </CardActions>
                 </Card>
+                
               </Grid>
             ))}
               
@@ -120,9 +149,8 @@ function Main() {
         <footer>
           Footer
         </footer>
+        <MyApp />
       </ThemeProvider>
-    </>
+    </ColorModeContext.Provider>
   );
 }
-
-export default Main

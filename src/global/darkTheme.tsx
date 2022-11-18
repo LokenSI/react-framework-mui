@@ -7,7 +7,7 @@ const darkTheme = {
         palette: {
                 primary: {
                     mode: 'dark',
-                    main: green[500]
+                    main: green[500],
                 }
             },
             typography: {

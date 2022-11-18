@@ -8,7 +8,7 @@ const lightTheme = {
     palette: {
             primary: {
                 mode: 'light',
-                main: green[500]
+                main: green[500],
             }
         },
         typography: {

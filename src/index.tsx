@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Main, { darkModeState } from './main';
+import './global/styleSheet.css';
+import Main from './main';
 import TopBar from './global/topbar/topbar';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot, useRecoilValue } from 'recoil';
@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <TopBar />
+      {/* <TopBar /> */}
       <Router>
         <Routes>
           <Route path="/*" element={<Main />}/>
